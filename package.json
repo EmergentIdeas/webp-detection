@@ -1,0 +1,23 @@
+{
+  "name": "@dankolz/webp-detection",
+  "version": "1.0.0",
+  "description": "detects a browser's ability to show webp images",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/EmergentIdeas/webp-detection.git"
+  },
+  "keywords": [
+    "browser",
+    "webp"
+  ],
+  "author": "Dan Kolz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EmergentIdeas/webp-detection/issues"
+  },
+  "homepage": "https://github.com/EmergentIdeas/webp-detection#readme"
+}
