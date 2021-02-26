@@ -13,8 +13,12 @@ EXT=$3
 FALLBACKEXT=${EXT:-png}
 convert $SRCIMG $DESTDIR/${NAME}-2x.webp
 convert $SRCIMG -resize 50% $DESTDIR/${NAME}.webp
+convert $SRCIMG -resize 25% $DESTDIR/${NAME}-half.webp
+convert $SRCIMG -resize 12.5% $DESTDIR/${NAME}-quarter.webp
 convert $SRCIMG $DESTDIR/${NAME}-2x.${FALLBACKEXT}
 convert $SRCIMG -resize 50% $DESTDIR/${NAME}.${FALLBACKEXT}
+convert $SRCIMG -resize 25% $DESTDIR/${NAME}-half.${FALLBACKEXT}
+convert $SRCIMG -resize 12.5% $DESTDIR/${NAME}-quarter.${FALLBACKEXT}
 SIZE=`identify ${SRCIMG} | cut -d' ' -f3`
 echo '{' > $DESTDIR/${NAME}.json
 echo ' "name": "'${NAME}'",' >> $DESTDIR/${NAME}.json
