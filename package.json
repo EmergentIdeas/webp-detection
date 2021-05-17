@@ -1,13 +1,14 @@
 {
   "name": "@dankolz/webp-detection",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "detects a browser's ability to show webp images",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "gen-image-pictures-and-styles": "./tools/gen-image-pictures-and-styles.js"
+    "gen-image-pictures-and-styles": "./tools/gen-image-pictures-and-styles.js",
+    "gen-image-pictures-and-styles-scss": "./tools/gen-image-pictures-and-styles-scss.js"
   },
   "repository": {
     "type": "git",
