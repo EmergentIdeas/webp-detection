@@ -47,6 +47,13 @@ let imgDirectory = source
 if(imgDirectory.startsWith('public/')) {
 	imgDirectory = imgDirectory.substring(6)
 }
+else if(imgDirectory.startsWith('webroot/')) {
+	imgDirectory = imgDirectory.substring(7)
+}
+
+if(imgDirectory.startsWith('/') == false) {
+	imgDirectory = '/' + imgDirectory
+}
 
 for(let descFile of imageDescriptions) {
 	let desc = JSON.parse(fs.readFileSync(descFile))
