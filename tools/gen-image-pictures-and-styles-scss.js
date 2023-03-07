@@ -137,6 +137,21 @@ for(let descFile of imageDescriptions) {
 	}
 }
 
+.ready-to-load-img .${pictureClass}-box-background, .ready-to-load-img .${pictureClass}-box-background-with-ratio {
+	background-image: url("${cdn}${imgDirectory}/${imgName}.${downgradeSuffix}");
+	
+	.webp & {
+		background-image: url("${cdn}${imgDirectory}/${imgName}.webp");
+	}
+
+	@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi){ 
+		background-image: url("${cdn}${imgDirectory}/${imgName}-2x.${downgradeSuffix}");
+		
+		.webp & {
+			background-image: url("${cdn}${imgDirectory}/${imgName}-2x.webp");
+		}
+	}
+}
 .${pictureClass}-background-ratio, .${pictureClass}-background-with-ratio {
 	@include ratio(${ratio});
 	background-position: center center;
