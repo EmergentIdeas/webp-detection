@@ -111,6 +111,14 @@ for(let descFile of imageDescriptions) {
 			background-image: url("${cdn}${imgDirectory}/${imgName}-half.webp");
 		}
 	}
+	@media (min-width: ${dim}px) {
+
+		background-image: url("${cdn}${imgDirectory}/${imgName}-2x.${downgradeSuffix}");
+		
+		.webp & {
+			background-image: url("${cdn}${imgDirectory}/${imgName}-2x.webp");
+		}
+	}
 	@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi){ 
 		background-image: url("${cdn}${imgDirectory}/${imgName}-2x.${downgradeSuffix}");
 		
