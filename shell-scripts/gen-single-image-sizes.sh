@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# Takes a source image (arg 1) which is an image twice as large as it needs to be
+# Takes a source image (arg 1) which is an image the size it needs to be
 # for the space, and transforms it to a webp file, one with a -2x.webp extension
-# which is the same size as the orginal, and a half size with a .webp ext.
+# which is twice the size as the orginal, and a half size with a .webp ext.
 # It also produces a falback image, png by default, but actually according to
 # arg 3 if set
 
 
-#requires convert (imagemagik) and pngquant
+#requires convert (imagemagik), identify, and pngquant
 
 SRCIMG=$1
 DESTDIR=$2

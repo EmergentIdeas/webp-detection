@@ -7,7 +7,7 @@
 # arg 3 if set
 
 
-#requires convert (imagemagik) and pngquant
+#requires convert (imagemagik), identify, and pngquant
 
 SRCIMG=$1
 DESTDIR=$2
@@ -19,10 +19,10 @@ SRCIMGEXT="${SRCIMG##*.}"
 
 
 # gen the webp version
-convert $SRCIMG $DESTDIR/${NAME}-2x.webp
-convert $SRCIMG -resize 50% $DESTDIR/${NAME}.webp
-convert $SRCIMG -resize 25% $DESTDIR/${NAME}-half.webp
-convert $SRCIMG -resize 12.5% $DESTDIR/${NAME}-quarter.webp
+convert $SRCIMG -quality "80%" $DESTDIR/${NAME}-2x.webp
+convert $SRCIMG -quality "80%" -resize 50% $DESTDIR/${NAME}.webp
+convert $SRCIMG -quality "80%" -resize 25% $DESTDIR/${NAME}-half.webp
+convert $SRCIMG -quality "80%" -resize 12.5% $DESTDIR/${NAME}-quarter.webp
 
 
 if [[ "${SRCIMGEXT,,}" = "png" ]] && [[ "${FALLBACKEXT,,}" = "png" ]]
@@ -33,10 +33,10 @@ then
 	# in other cases we're probably converting to jpeg or from a non png format, so no need for the
 	# png optimization above
 fi
-convert $SRCIMG $DESTDIR/${NAME}-2x.${FALLBACKEXT}
-convert $SRCIMG -resize 50% $DESTDIR/${NAME}.${FALLBACKEXT}
-convert $SRCIMG -resize 25% $DESTDIR/${NAME}-half.${FALLBACKEXT}
-convert $SRCIMG -resize 12.5% $DESTDIR/${NAME}-quarter.${FALLBACKEXT}
+convert $SRCIMG -quality "80%" $DESTDIR/${NAME}-2x.${FALLBACKEXT}
+convert $SRCIMG -quality "80%" -resize 50% $DESTDIR/${NAME}.${FALLBACKEXT}
+convert $SRCIMG -quality "80%" -resize 25% $DESTDIR/${NAME}-half.${FALLBACKEXT}
+convert $SRCIMG -quality "80%" -resize 12.5% $DESTDIR/${NAME}-quarter.${FALLBACKEXT}
 
 if [[ "${SRCIMGEXT,,}" = "png" ]] && [[ "${FALLBACKEXT,,}" = "png" ]]
 then

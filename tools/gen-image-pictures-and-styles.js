@@ -75,17 +75,21 @@ for(let descFile of imageDescriptions) {
 
 	let sizes = desc.size.split('x')
 	let dim = sizes[0] / 2
+	let height = sizes[1] / 2
 	let ratio = sizes[1]/sizes[0] 
 
 	let pictureEl = 
 `<picture class="${pictureClass}">
-	<source media="(max-width: ${dim /4}px)" srcset="__::cdnPrefix__${imgDirectory}/${imgName}-half.webp 2x, __::cdnPrefix__${imgDirectory}/${imgName}-quarter.webp 1x" type="image/webp">
-	<source media="(max-width: ${dim /4}px)" srcset="__::cdnPrefix__${imgDirectory}/${imgName}-half.${downgradeSuffix} 2x, __::cdnPrefix__${imgDirectory}/${imgName}-quarter.${downgradeSuffix} 1x" type="${downgradeType}">
-	<source media="(max-width: ${dim /2}px)" srcset="__::cdnPrefix__${imgDirectory}/${imgName}.webp 2x, __::cdnPrefix__${imgDirectory}/${imgName}-half.webp 1x" type="image/webp">
-	<source media="(max-width: ${dim /2}px)" srcset="__::cdnPrefix__${imgDirectory}/${imgName}.${downgradeSuffix} 2x, __::cdnPrefix__${imgDirectory}/${imgName}-half.${downgradeSuffix} 1x" type="${downgradeType}">
-	<source srcset="__::cdnPrefix__${imgDirectory}/${imgName}-2x.webp 2x, __::cdnPrefix__${imgDirectory}/${imgName}.webp 1x" type="image/webp">
-	<source srcset="__::cdnPrefix__${imgDirectory}/${imgName}-2x.${downgradeSuffix} 2x, __::cdnPrefix__${imgDirectory}/${imgName}.${downgradeSuffix} 1x" type="${downgradeType}">
-	<img src="__::cdnPrefix__${imgDirectory}/${imgName}.${downgradeSuffix}" alt="${alt}">
+	<source 
+		srcset="__::cdnPrefix__${imgDirectory}/${imgName}-2x.webp ${dim * 2}w, __::cdnPrefix__${imgDirectory}/${imgName}.webp ${dim}w, __::cdnPrefix__${imgDirectory}/${imgName}-half.webp ${dim / 2}w, __::cdnPrefix__${imgDirectory}/${imgName}-quarter.webp ${dim / 4}w"  
+		sizes="min(100vw, ${dim}px)"
+		type="image/webp">
+	<source 
+		srcset="__::cdnPrefix__${imgDirectory}/${imgName}-2x.${downgradeSuffix} ${dim * 2}w, __::cdnPrefix__${imgDirectory}/${imgName}.${downgradeSuffix} ${dim}w, __::cdnPrefix__${imgDirectory}/${imgName}-half.${downgradeSuffix} ${dim / 2}w, __::cdnPrefix__${imgDirectory}/${imgName}-quarter.${downgradeSuffix} ${dim / 4}w"  
+		sizes="min(100vw, ${dim}px)"
+		type="${downgradeType}">
+	
+	<img src="__::cdnPrefix__${imgDirectory}/${imgName}.${downgradeSuffix}" alt="${alt}" width="${dim}" height="${height}" style="height: auto;">
 </picture>
 `
 	fs.writeFileSync(path.join(viewDir, imgName + '.tri'), pictureEl)
@@ -102,6 +106,11 @@ for(let descFile of imageDescriptions) {
 	.webp & {
 		background-image: url("${cdn}${imgDirectory}/${imgName}.webp");
 	}
+	
+`
+	if(dim / 2 > 327) {
+		styles +=
+`	
 	@media (max-width: ${dim / 2}px) {
 
 		background-image: url("${cdn}${imgDirectory}/${imgName}-half.${downgradeSuffix}");
@@ -110,7 +119,10 @@ for(let descFile of imageDescriptions) {
 			background-image: url("${cdn}${imgDirectory}/${imgName}-half.webp");
 		}
 	}
-	@media (min-width: ${dim}px) {
+`	
+	}
+	
+`	@media (min-width: ${dim}px) {
 
 		background-image: url("${cdn}${imgDirectory}/${imgName}-2x.${downgradeSuffix}");
 
@@ -118,14 +130,19 @@ for(let descFile of imageDescriptions) {
 			background-image: url("${cdn}${imgDirectory}/${imgName}-2x.webp");
 		}
 	}
-	@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi){ 
+`
+	
+	styles +=
+`	@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi){ 
 		background-image: url("${cdn}${imgDirectory}/${imgName}-2x.${downgradeSuffix}");
 		
 		.webp & {
 			background-image: url("${cdn}${imgDirectory}/${imgName}-2x.webp");
 		}
-		
-		@media (max-width: ${dim / 2}px) {
+`		
+	if(dim / 2 > 327) {
+		styles +=
+`		@media (max-width: ${dim / 2}px) {
 
 			background-image: url("${cdn}${imgDirectory}/${imgName}.${downgradeSuffix}");
 			
@@ -133,8 +150,15 @@ for(let descFile of imageDescriptions) {
 				background-image: url("${cdn}${imgDirectory}/${imgName}.webp");
 			}
 		}
+`		
 	}
-}
+	styles +=	
+`	}
+`
+	
+	
+	styles +=
+`}
 .ready-to-load-img .${pictureClass}-box-background, .ready-to-load-img .${pictureClass}-box-background-with-ratio {
 	background-image: url("${cdn}${imgDirectory}/${imgName}.${downgradeSuffix}");
 	
