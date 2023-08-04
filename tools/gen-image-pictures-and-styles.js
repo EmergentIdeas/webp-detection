@@ -80,16 +80,18 @@ for(let descFile of imageDescriptions) {
 
 	let pictureEl = 
 `<picture class="${pictureClass}">
+	__$globals.imageScratchpad = {width: this.imageWidth || ${dim}, height: this.imageHeight || ${height}, imageStyle: this.imageStyle || 'height: auto' }??''__
 	<source 
 		srcset="__::cdnPrefix__${imgDirectory}/${imgName}-2x.webp ${dim * 2}w, __::cdnPrefix__${imgDirectory}/${imgName}.webp ${dim}w, __::cdnPrefix__${imgDirectory}/${imgName}-half.webp ${dim / 2}w, __::cdnPrefix__${imgDirectory}/${imgName}-quarter.webp ${dim / 4}w"  
-		sizes="min(100vw, ${dim}px)"
+		sizes="min(100vw, __$globals.imageScratchpad.width__px)"
 		type="image/webp">
 	<source 
 		srcset="__::cdnPrefix__${imgDirectory}/${imgName}-2x.${downgradeSuffix} ${dim * 2}w, __::cdnPrefix__${imgDirectory}/${imgName}.${downgradeSuffix} ${dim}w, __::cdnPrefix__${imgDirectory}/${imgName}-half.${downgradeSuffix} ${dim / 2}w, __::cdnPrefix__${imgDirectory}/${imgName}-quarter.${downgradeSuffix} ${dim / 4}w"  
-		sizes="min(100vw, ${dim}px)"
+		sizes="min(100vw, __$globals.imageScratchpad.width__px)"
 		type="${downgradeType}">
 	
-	<img src="__::cdnPrefix__${imgDirectory}/${imgName}.${downgradeSuffix}" alt="${alt}" width="${dim}" height="${height}" style="height: auto;">
+	<img src="__::cdnPrefix__${imgDirectory}/${imgName}.${downgradeSuffix}" alt="${alt}" width="__$globals.imageScratchpad.width__" height="__$globals.imageScratchpad.height__" style="__$globals.imageScratchpad.imageStyle__">
+	__delete $globals.imageScratchpad??''__
 </picture>
 `
 	fs.writeFileSync(path.join(viewDir, imgName + '.tri'), pictureEl)

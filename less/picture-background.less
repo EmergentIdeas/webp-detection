@@ -1,0 +1,16 @@
+.use-picture-as-background {
+	position: relative;
+	isolation: isolate;
+	& > picture:first-child {
+		user-select: none;
+		img {
+			position: absolute;
+			width: 100%;
+			height: 100% !important;
+			object-fit: cover;
+			object-position: center center;
+			z-index: -1;
+			user-select: none;
+		}
+	}
+}
