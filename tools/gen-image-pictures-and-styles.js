@@ -43,6 +43,10 @@ let styles = `
 
 ` 
 
+function rd(num) {
+	return Math.round(num)
+}
+
 let imgDirectory = source
 if(imgDirectory.startsWith('public/')) {
 	imgDirectory = imgDirectory.substring(6)
@@ -80,13 +84,13 @@ for(let descFile of imageDescriptions) {
 
 	let pictureEl = 
 `<picture class="${pictureClass}">
-	__$globals.imageScratchpad = {width: this.imageWidth || ${dim}, height: this.imageHeight || ${height}, imageStyle: this.imageStyle || 'height: auto' }??''__
+	__$globals.imageScratchpad = {width: this.imageWidth || ${rd(dim)}, height: this.imageHeight || ${rd(height)}, imageStyle: this.imageStyle || 'height: auto' }??''__
 	<source 
-		srcset="__::cdnPrefix__${imgDirectory}/${imgName}-2x.webp ${dim * 2}w, __::cdnPrefix__${imgDirectory}/${imgName}.webp ${dim}w, __::cdnPrefix__${imgDirectory}/${imgName}-half.webp ${dim / 2}w, __::cdnPrefix__${imgDirectory}/${imgName}-quarter.webp ${dim / 4}w"  
+		srcset="__::cdnPrefix__${imgDirectory}/${imgName}-2x.webp ${dim * 2}w, __::cdnPrefix__${imgDirectory}/${imgName}.webp ${rd(dim)}w, __::cdnPrefix__${imgDirectory}/${imgName}-half.webp ${rd(dim / 2)}w, __::cdnPrefix__${imgDirectory}/${imgName}-quarter.webp ${rd(dim / 4)}w"  
 		sizes="min(100vw, __$globals.imageScratchpad.width__px)"
 		type="image/webp">
 	<source 
-		srcset="__::cdnPrefix__${imgDirectory}/${imgName}-2x.${downgradeSuffix} ${dim * 2}w, __::cdnPrefix__${imgDirectory}/${imgName}.${downgradeSuffix} ${dim}w, __::cdnPrefix__${imgDirectory}/${imgName}-half.${downgradeSuffix} ${dim / 2}w, __::cdnPrefix__${imgDirectory}/${imgName}-quarter.${downgradeSuffix} ${dim / 4}w"  
+		srcset="__::cdnPrefix__${imgDirectory}/${imgName}-2x.${downgradeSuffix} ${dim * 2}w, __::cdnPrefix__${imgDirectory}/${imgName}.${downgradeSuffix} ${rd(dim)}w, __::cdnPrefix__${imgDirectory}/${imgName}-half.${downgradeSuffix} ${rd(dim / 2)}w, __::cdnPrefix__${imgDirectory}/${imgName}-quarter.${downgradeSuffix} ${rd(dim / 4)}w"  
 		sizes="min(100vw, __$globals.imageScratchpad.width__px)"
 		type="${downgradeType}">
 	
