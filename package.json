@@ -1,6 +1,6 @@
 {
   "name": "@dankolz/webp-detection",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "detects a browser's ability to show webp images",
   "main": "index.js",
   "scripts": {
